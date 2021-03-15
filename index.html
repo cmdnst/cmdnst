@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<!--
+	Photon by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>In the light of feature distributions: moment matching for Neural Style Transfer</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style type="text/css">
+    		#authors div {
+                width: 150px;
+            }
+            .circular-wrapper {
+              display: inline-block;
+              position: relative;
+              width: 150px;
+              height: 150px;
+              overflow: hidden;
+              border-radius: 50%;
+            }
+            #authors img {  
+              width: 100%;
+              height: auto;
+            }
+            .image-wrapper {
+                flex: 1
+            }
+            .img-wrapper img {
+                width: 100%;
+            }
+            .img-mm {
+                flex-basis: 30% !important;
+            }
+            .img-gallery {
+                padding: 10px;                  
+                flex-basis: 30% !important;
+            }  
+            @media screen and (max-width: 736px) {
+                #authors div {
+                    width: 100px;
+                }
+                .circular-wrapper {
+                  display: inline-block;
+                  position: relative;
+                  width: 100px;
+                  height: 100px;
+                  overflow: hidden;
+                  border-radius: 50%;
+                }
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<div class="inner">
+					<!--<span class="icon solid major fa-cloud"></span> -->
+					<h1 style="margin-bottom: 1em;">In the light of feature distributions:<br />
+					Moment matching for Neural Style Transfer</h1>
+					<div class="container">
+					    <div id="authors" style="display: flex; justify-content:space-evenly">  
+                            <div><div class="circular-wrapper"><img src="images/nikolai.jpeg" alt="Nikolai Kalischek"/></div><br />Nikolai Kalischek</div>
+                            <div><div class="circular-wrapper"><img src="images/jan.jpeg" alt="Jan Dirk Wegner"/></div><br />Jan Dirk Wegner</div>
+                            <div><div class="circular-wrapper"><img src="images/konrad.jpeg" alt="Konrad Schindler"/></div><br />Konrad Schindler</div>
+                        </div>
+                        <p>EcoVision Lab, Photogrammetry and Remote Sensing, ETH Z&uuml;rich<br />
+                        <span style="font-family: Courier New;font-size:0.8em">{nikolai.kalischek,jan.wegner}@geod.baug.ethz.ch, schindler@ethz.ch</span></p>
+    					<br />
+                        <h4>CVPR 2021</h4>
+                        <div>
+    						<a href="https://arxiv.org/abs/2103.07208" target="_blank" class="button" style="margin-right: 0.25em;"><i class="far fa-file-pdf"></i> Paper</a>
+    						<a href="https://github.com/D1noFuzi/cmd_styletransfer" target="_blank" class="button" style="margin-left: 0.25em;"><i class="fab fa-github"></i> Code</a>
+    					</div>   
+                    </div>
+				</div>
+			</section>
+			<section id="one" class="main style1 special" style="padding-top: 2em;">
+				<div class="container">
+					<div class="row aln-center">   
+					    <div class="img-wrapper">
+    						<img class="" src="images/picasso_picasso2.jpg" alt="" />
+    					</div>
+    					<div class="img-wrapper">
+                            <img class="" src="images/kandinsky.jpg" alt="" />
+                        </div>
+    					<div class="img-wrapper">
+                            <img class="" src="images/vangogh_portrait.jpg" alt="" />
+                        </div>
+    					<div class="img-wrapper">
+                            <img class="" src="images/richter.jpg" alt="" />
+                        </div>
+    					<div class="img-wrapper">
+                            <img class="" src="images/monet2.jpg" alt="" />
+                        </div>
+					</div>
+				</div>
+			</section>
+			<section id="two" class="main style1 special">
+				<div class="container">
+					<header class="major">
+						<h2>Abstract</h2>
+					</header>
+					<p style="text-align: justify; padding: 0 4em 0 4em;"> 
+                        Style transfer aims to render the content of a given image
+                        in the graphical/artistic style of another image. The fundamental
+                        concept underlying Neural Style Transfer (NST) is
+                        to interpret style as a distribution in the feature space of a
+                        Convolutional Neural Network, such that a desired style can
+                        be achieved by matching its feature distribution. We show
+                        that most current implementations of that concept have important
+                        theoretical and practical limitations, as they only
+                        partially align the feature distributions. We propose a novel
+                        approach that matches the distributions more precisely, thus
+                        reproducing the desired style more faithfully, while still being
+                        computationally efficient. Specifically, we adapt the
+                        dual form of Central Moment Discrepancy (CMD), as recently
+                        proposed for domain adaptation, to minimize the difference
+                        between the target style and the feature distribution
+                        of the output image. The dual interpretation of this metric
+                        explicitly matches all higher-order centralized moments
+                        and is therefore a natural extension of existing NST methods
+                        that only take into account the first and second moments.
+                        Our experiments confirm that the strong theoretical properties
+                        also translate to visually better style transfer, and better
+                        disentangle style from semantic image content.
+                    </p>
+						
+				</div>
+			</section>
+			<section id="three" class="main style1">
+				<div class="container">
+					<div class="row gtr-150">
+						<div class="col-6 col-12-medium">
+							<header class="major">
+								<h2>Moment matching</h2>
+							</header>
+							<p>
+                                One fundamental idea in NST is to interpret style as a distribution in a feature space. In fact,
+                                most existing NST methods can be interpreted this way and has lead to a series of works all centered
+                                around aligning feature distributions of CNNs. However, existing style transfer methods suffer from
+                                rather elementary theoretical limitations. Broadly, there are two schools. Either the distributions 
+                                are unrestricted, but the discrepancy between them is measured without adhering to the law of 
+                                indiscernibles; or the distributions are approximated roughly with simple functions, so that they
+                                admit closed-form solutions.
+                            </p>
+                            <p>
+                                Have a look at our <a href="https://arxiv.org/abs/2103.07208" target="_blank"><i class="far fa-file-pdf"></i> paper</a> for an in-depth theoretical analysis of existing methods and their limitations.
+                            </p>
+						</div>
+						<div class="col-6 col-12-medium imp-medium" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
+							<span class="image fit img-mm"><img src="images/pics-source.jpg" alt="" /></span>
+							<span class="image fit img-mm"><img src="images/pics-target.jpg" alt="" /></span>
+							<span class="image fit img-mm"><img src="images/pics-mmd.jpg" alt="" /></span>
+							<span class="image fit img-mm"><img src="images/pics-mm.jpg" alt="" /></span>
+							<span class="image fit img-mm"><img src="images/pics-cmd5.jpg" alt="" /></span>
+							<span class="image fit img-mm"><img src="images/pics-cmd50.jpg" alt="" /></span>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section id="four" class="main style2 special" style="padding-bottom: 2em;">
+				<div class="container">
+					<header class="major">
+						<h2>Qualitative results</h2>
+					</header>
+					<div class="row aln-center" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;align-items: center;">
+					    <span class="image fit img-gallery"><img src="images/content/kodim15.png" alt="" /></span>
+					    <span class="image fit img-gallery"><img src="images/style/The_Scream.png" alt="" /></span>
+					    <span class="image fit img-gallery"><img src="images/stylized/kodim15.png_The_Scream.jpg.png" alt="" /></span>
+    					<span class="image fit img-gallery"><img src="images/content/kodim04.png" alt="" /></span>
+    					<span class="image fit img-gallery"><img src="images/style/woman_in_peasant_dress.jpg" alt="" /></span>
+    					<span class="image fit img-gallery"><img src="images/stylized/kodim04.png_woman_in_peasant_dress.jpg.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/006.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/076.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/006.jpg_076.jpg.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/1.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/rain_princess.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/1.png_rain_princess.jpg.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/kodim23.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/vangogh_starry_night.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/kodim23.png_vangogh_starry_night.jpg.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/face1.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/candy.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/test2_lr_0.3.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/modern.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/udnie.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/test3_lr_0.2.png" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/content/dancing.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/style/smeared_0096.jpg" alt="" /></span>
+                        <span class="image fit img-gallery"><img src="images/stylized/test4_lr_0.2.png" alt="" /></span>
+					</div>
+				</div>
+			</section>
+			
+			<section id="four" class="main style1 special">
+				<div class="container">
+					<header class="major">
+						<h2>Citation</h2>
+					</header>
+					<pre>
+					<code style="text-align: justify;">
+@article{kalischek2021light,
+      title={In the light of feature distributions: moment matching for Neural Style Transfer}, 
+      author={Nikolai Kalischek and Jan Dirk Wegner and Konrad Schindler},
+      year={2021},
+      eprint={2103.07208},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+                    </code>
+                    </pre>
+				</div>
+			</section>
+
+
+			<section id="footer">
+				<ul class="copyright">
+					<li>Credits and thanks to <a href="https://html5up.net/photon">HTML5 UP</a> for providing free adaptable templates.</li>
+				</ul>
+			</section>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
